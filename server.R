@@ -28,7 +28,7 @@ shinyServer(function(input, output) {
  
  #GANANCIAS TOTALES
  output$tearnings <- renderValueBox(
-   {valueBox(paste0("S/.",format((sum(calls$billsec) / 60) * 0.20, digits = 3,  big.mark = ",")), "Ganancias Totales", icon = icon("usd"))}
+   {valueBox(paste0("S/.",format((sum(calls$billsec) / 60) * 0.25, digits = 3,  big.mark = ",")), "Ganancias Totales", icon = icon("usd"))}
  )
  # TOTAL DE LLAMADAS
  output$tcalls <- renderValueBox(
@@ -55,5 +55,56 @@ shinyServer(function(input, output) {
    daily_report(log)
  })
  
+ ## LLAMADAS A SOPORTE
+ 
+ timeSerie<-reactive({
+   callsupport$start <- gsub("([0-9]+:[0-9]+:[0-9]+)","", callsupport$start)
+   callsupport_repot <- data.frame(callsupport$start, c(0))
+   colnames(callsupport_repot)<-list("date", "value")
+   callsupport_repot <-callsupport_repot %>%
+     group_by(date) %>%
+     summarise(n())
+   colnames(callsupport_repot)<-list("date", "value")
+   ##convertir a tipo date
+   callsupport_repot$date <-strptime(as.character(callsupport_repot$date), "%Y-%m-%d")
+   soporteTS<- xts(x=callsupport_repot$value,order.by = callsupport_repot$date, format='%Y-%M-%d')
+ })
+ 
+ output$report02 <- renderDygraph({
+   dygraph(timeSerie(), main = "") %>%
+     dyOptions(drawGrid = input$showgrid,fillGraph = input$fillGraph, colors="green",
+               drawPoints = input$drawpoint, pointSize = 2,fillAlpha = 0.4)%>%
+     dyRangeSelector(dateWindow = input$dateRange)
+ })
+ 
+ 
+ output$report04 <- renderDygraph(
+   {
+     indices <- c(1:4)
+     xx <- hours(callfailed)
+     tsdata = xts(x = xx[,-1], order.by = strptime(xx[,1], format='%Y-%m-%d %H'))
+     
+     dygraph(tsdata[, c(input$busy,input$congestion, input$failed, input$no_answer)], main = "") %>%
+       dyOptions( drawPoints = T, pointSize = 2, colors = RColorBrewer::brewer.pal(4, "Set1")) %>%
+       dyRangeSelector(dateWindow =  input$dateRan)
+     
+   }
+ )
+ 
+ output$report05 <- renderDygraph({
+   test <- sin_exito(congestion$start)
+   datats <- xts(x=test$total, order.by = strptime(test$fecha, format='%Y-%m-%d %H'))
+   
+   dygraph(datats, main = "Llamadas sin éxito por congestion.") %>% 
+     dySeries("V1", label="Total") %>% 
+     dyOptions(drawGrid = input$showgrid05,fillGraph = input$fillGraph05, drawPoints = input$drawpoint05, colors=c("red"), pointSize = 2) %>%  
+     dyRangeSelector(dateWindow =date_range(test$fecha, 7 * 24))
+   
+ })
+ 
+ output$report06 <- renderHighchart({
+   cong <- sin_exito(congestion$start)
+   hchart(cong$total)
+ })
  
 })
