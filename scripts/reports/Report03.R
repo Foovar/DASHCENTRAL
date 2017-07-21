@@ -6,7 +6,7 @@ call_duration <- function(calls, input){
   colnames(duracion) <- list("start", "billsec")
   duracion$billsec <- duracion$billsec / 60;
   dts <- timeSD(duracion$billsec, duracion$start)
-  dygraph(dts, main = "Duracion de Llamadas diarias.") %>% 
+  dygraph(dts, main = "Duracion de Llamadas diarias.", ylab = "Minutos") %>% 
     dySeries("V1", label="Total") %>% 
     dyOptions(fillGraph = T, colors=c("blue"), pointSize = 2) %>% 
   dyRangeSelector(dateWindow = input$dateRange)

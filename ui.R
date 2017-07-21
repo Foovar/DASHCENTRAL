@@ -67,7 +67,7 @@ dashboardPage(
         checkboxInput("showgrid", label = "Showgrid", value = TRUE),
         checkboxInput("fillGraph", label = "Fill graph", value = TRUE),
         checkboxInput("drawpoint", label = "Draw points", value = TRUE)
-      ), box(dygraphOutput("report02"), width = 8, title = "LLamadas diarias a atencion al cliente.")),
+      ), box(dygraphOutput("report02"), width = 8, title = "LLamadas diarias a atencion al cliente.", solidHeader = T, collapsible = T, status = "primary")),
       
       
       tabItem(tabName = "report04", sidebarPanel(
