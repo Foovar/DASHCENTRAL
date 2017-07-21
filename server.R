@@ -14,6 +14,7 @@ source("scripts/reports/Report02.R")
 source("scripts/reports/Report03.R")
 source("scripts/reports/Report04.R")
 source("scripts/reports/Report05.R")
+source("scripts/reports/Report06.R")
 
 log <- read.csv("input/Log.csv")
 colnames(log) <- list( "src", "dst", "dcontext", "clid", "channel", "dstchannel", "lastapp", "lastdata", "start", "answer", "end", "duration", "billsec", "disposition", "amaflags", "uniqueid", "ip", "port" )
@@ -93,8 +94,7 @@ shinyServer(function(input, output) {
  })
  
  output$report06 <- renderHighchart({
-   cong <- sin_exito(congestion$start)
-   hchart(cong$total)
+   earnings_calls(calls, input)
  })
  
 })

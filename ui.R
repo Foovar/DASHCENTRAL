@@ -59,6 +59,7 @@ dashboardPage(
       
       tabItem(tabName = "report01", dygraphOutput("report01")),
       tabItem(tabName = "report03", dygraphOutput("report03")),
+      tabItem(tabName = "report06", dygraphOutput("report06")),
       tabItem(tabName = "report02", sidebarPanel(
         dateRangeInput('dateRange', label = paste('Fecha Inicio - ', " Fecha Fin"),
                        start = as.Date("2017-10-13"), end = as.Date("2017-10-18"),
@@ -82,9 +83,9 @@ dashboardPage(
       ), box(dygraphOutput("report04") , width = 8, title="Llamadas sin exito.", solidHeader = T, collapsible = T, status = "primary")),
       
       tabItem(tabName = "report05", sidebarPanel(
-        dateRangeInput('dateRange', label = paste('Fecha Inicio - ', " Fecha Fin"),
-                       start = as.Date("2017-07-17"), end = as.Date("2017-08-17"),
-                       min = as.Date("2017-07-14"), max = as.Date("2017-10-17"),
+        dateRangeInput('dateRangeCon', label = paste('Fecha Inicio - ', " Fecha Fin"),
+                       start = as.Date("2017-10-13"), end = as.Date("2017-10-18"),
+                       min = as.Date("2017-07-14"), max = as.Date("2017-10-20"),
                        separator = " - ", format = "yyyy-mm-dd"),
         checkboxInput("showgrid05", label = "Showgrid", value = TRUE),
         checkboxInput("fillGraph05", label = "Fill graph", value = TRUE),
