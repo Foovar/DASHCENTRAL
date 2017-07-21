@@ -29,13 +29,11 @@ dashboardPage(
   dashboardBody(
     tabItems(
       tabItem(tabName = "dashboard", fluidRow(
-        valueBox(10 * 2, "New Orders", icon = icon("credit-card")),
-        valueBox(10 * 2, "New Orders", icon = icon("credit-card"), color = "purple"),
+        valueBoxOutput("tearnings"),
+        valueBoxOutput("tusers"),
         valueBoxOutput("tcalls"),
-        box(
-          title = "Controls",
-          sliderInput("slider", "Number of observations:", 1, 100, 50)
-        )
+        box(highchartOutput("pcalls"), status = "primary"),
+        box(title = "Ultimas llamadas realizadas.")
       )),
       
       tabItem(tabName = "data", fluidRow(
@@ -45,3 +43,5 @@ dashboardPage(
     )
   )
 )
+
+#box( dygraphOutput("report01") ),
