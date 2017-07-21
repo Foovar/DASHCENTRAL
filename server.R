@@ -47,6 +47,9 @@ shinyServer(function(input, output) {
    hchart(as.character(log$disposition), type = "pie")
  })
  
+ output$gcalls <- renderDygraph({
+   daily_report(log)
+ })
  
  #REPORTES
  

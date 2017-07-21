@@ -50,8 +50,8 @@ dashboardPage(
         valueBoxOutput("tearnings"),
         valueBoxOutput("tusers"),
         valueBoxOutput("tcalls"),
-        box(highchartOutput("pcalls"), status = "primary"),
-        box(title = "Ultimas llamadas realizadas.")
+        box(highchartOutput("pcalls"), status = "primary", solidHeader = T ),
+        box(dygraphOutput("gcalls"), status = "primary", solidHeader = T )
       )),
       
       tabItem(tabName = "data", fluidRow(
