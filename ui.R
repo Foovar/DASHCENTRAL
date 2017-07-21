@@ -58,11 +58,11 @@ dashboardPage(
           DT::dataTableOutput("table"))),
       
       tabItem(tabName = "report01", dygraphOutput("report01")),
-      
+      tabItem(tabName = "report03", dygraphOutput("report03")),
       tabItem(tabName = "report02", sidebarPanel(
         dateRangeInput('dateRange', label = paste('Fecha Inicio - ', " Fecha Fin"),
-                       start = as.Date("2017-07-17"), end = as.Date("2017-08-17"),
-                       min = as.Date("2017-07-14"), max = as.Date("2017-10-17"),
+                       start = as.Date("2017-10-13"), end = as.Date("2017-10-18"),
+                       min = as.Date("2017-07-14"), max = as.Date("2017-10-20"),
                        separator = " - ", format = "yyyy-mm-dd"),
         checkboxInput("showgrid", label = "Showgrid", value = TRUE),
         checkboxInput("fillGraph", label = "Fill graph", value = TRUE),
