@@ -1,15 +1,5 @@
-
-# This is the user-interface definition of a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
 # Central telefonica - Mainframe UPAO
 # 
-library(shiny)
-library(shinydashboard)
-library(dygraphs)
-
 dashboardPage(
   dashboardHeader(title = "CENTRAL REPORTS", dropdownMenu(
     type = "messages", icon = icon("group"), headerText = "Integrantes",

@@ -1,14 +1,11 @@
-
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-setwd("/Users/Alex/Git/DASHCENTRAL")
-
+setwd("/home/DASHCENTRAL/")
 library(shiny)
 library(dplyr)
 library(highcharter)
+library(shinydashboard)
+library(dygraphs)
+library(zoo)
+library(xts)
 source("scripts/reports/Report01.R")
 source("scripts/reports/Report02.R")
 source("scripts/reports/Report03.R")
@@ -16,7 +13,7 @@ source("scripts/reports/Report04.R")
 source("scripts/reports/Report05.R")
 source("scripts/reports/Report06.R")
 
-log <- read.csv("input/Log.csv")
+log <- read.csv("/home/R-CENTRAL/input/Log.csv")
 colnames(log) <- list( "src", "dst", "dcontext", "clid", "channel", "dstchannel", "lastapp", "lastdata", "start", "answer", "end", "duration", "billsec", "disposition", "amaflags", "uniqueid", "ip", "port" )
 calls <- log[log$answer != "", ]
 callfailed <- log[log$answer == "" & log$dst != "123" , ]
@@ -39,7 +36,6 @@ shinyServer(function(input, output) {
  output$tcalls <- renderValueBox(
    {valueBox(format(length(log$src), digits = 3,  big.mark = ","), "Total de Llamadas", icon = icon("phone"), color="yellow")}
  )
- 
  # TOTAL DE USUARIOS
  output$tusers <- renderValueBox(
    {
